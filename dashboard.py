@@ -3,9 +3,12 @@ import pandas as pd
 from inserts import select
 import plotly.graph_objects as go
 from inserts import atualizar_status
+from streamlit_autorefresh import st_autorefresh
 import time
 
 st.set_page_config(layout="wide")
+
+st_autorefresh(interval=1 * 60 * 1000, key="dataframerefresh")
 
 dados = select()
 
