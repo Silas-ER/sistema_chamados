@@ -2,13 +2,15 @@ import streamlit as st
 import pandas as pd
 from inserts import select
 import plotly.graph_objects as go
+from inserts import atualizar_status
+import time
 
 st.set_page_config(layout="wide")
 
 dados = select()
 
 # Criando um DataFrame a partir dos dados lidos
-colunas = ["ID", "MATRICULA", "NOME", "TELEFONE", "SETOR", "TIPO", "EMAIL", "DESCRICAO"]
+colunas = ["ID", "MATRICULA", "NOME", "TELEFONE", "SETOR", "TIPO", "EMAIL", "DESCRICAO", "STATUS"]
 df = pd.DataFrame(dados, columns=colunas)
 
 # Exibindo os dados em uma tabela no Streamlit
@@ -38,6 +40,8 @@ if not df.empty:
                               template="plotly_white")
         st.plotly_chart(fig_bar)
 
+
+
     with col2:
         # Criando o gráfico de pizza com Plotly Graph Objects
         grafico_pesca_tipo = go.Figure(go.Pie(labels=df_count_tipo['TIPO'],
@@ -51,5 +55,29 @@ if not df.empty:
 
         st.plotly_chart(grafico_pesca_tipo)
 
+
+    df_true_status = df[df["STATUS"] == True]
+    if not df_true_status.empty:
+        with st.container():
+                st.title("Solicitações em aberto:")
+                st.write("----")
+                for row in df_true_status.itertuples():
+                    col1, col2 = st.columns([4, 1])
+
+                    with col1:
+                        st.write(f"""
+                                Nova Solicitação do tipo {row.TIPO}: {row.NOME} do setor {row.SETOR}, relata {row.DESCRICAO}, com os seguintes dados de contato: {row.TELEFONE} e {row.EMAIL}
+                                """, unsafe_allow_html=True)
+                    
+                    with col2:
+                        if st.button(f"Fechar Solicitação {row.ID}", key=row.ID):
+                            atualizar_status(row.ID)
+                            time.sleep(4)
+                            st.rerun()
+
+                    st.write("----")
+    else:
+        st.write("Não há registros com STATUS igual a True.")
+        
 else:
     st.write("Nenhum dado encontrado.")

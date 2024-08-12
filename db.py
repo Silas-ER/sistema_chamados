@@ -17,7 +17,8 @@ cursor.execute(
         SETOR TEXT NOT NULL,
         TIPO TEXT NOT NULL,
         EMAIL TEXT NOT NULL,
-        DESCRICAO TEXT NOT NULL
+        DESCRICAO TEXT NOT NULL,
+        STATUS BOOL NOT NULL
     )
     """
 )

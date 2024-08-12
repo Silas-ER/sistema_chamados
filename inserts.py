@@ -2,7 +2,31 @@ import streamlit as st
 import sqlite3
 
 # Função para inserir dados no banco de dados
-def inserir_dados(matricula, nome, telefone, setor, tipo, email, descricao):
+def atualizar_status(id):
+    try:
+        # Conectar ao banco de dados
+        db = sqlite3.connect('dados_acesso.db')
+        cursor = db.cursor()
+
+        # Atualizar o status da solicitação para False
+        cursor.execute("""
+            UPDATE SOLICITACOES
+            SET STATUS = ?
+            WHERE ID = ?
+        """, (0, id))
+
+        # Confirmar a transação
+        db.commit()
+        st.success(f"Solicitação {id} fechada com sucesso!")
+
+    except sqlite3.Error as e:
+        st.error(f"Erro ao atualizar o status: {e}")
+
+    finally:
+        # Fechar a conexão com o banco de dados
+        db.close()
+
+def inserir_dados(matricula, nome, telefone, setor, tipo, email, descricao, status):
     try:
         # Conectar ao banco de dados
         db = sqlite3.connect('dados_acesso.db')
@@ -10,9 +34,9 @@ def inserir_dados(matricula, nome, telefone, setor, tipo, email, descricao):
 
         # Comando SQL para inserir dados
         cursor.execute("""
-            INSERT INTO SOLICITACOES (MATRICULA, NOME, TELEFONE, SETOR, TIPO, EMAIL, DESCRICAO)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, (matricula, nome, telefone, setor, tipo, email, descricao))
+            INSERT INTO SOLICITACOES (MATRICULA, NOME, TELEFONE, SETOR, TIPO, EMAIL, DESCRICAO, STATUS)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """, (matricula, nome, telefone, setor, tipo, email, descricao, status))
 
         # Confirmar a transação
         db.commit()

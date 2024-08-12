@@ -3,6 +3,7 @@ from inserts import inserir_dados
 
 col1, col2, col3 = st.columns([0.5, 2, 0.5])
 
+status = True
 with col1:
     pass
 
@@ -78,6 +79,6 @@ with col2:
 
         # Ações a serem tomadas após o envio do formulário
         if submit_button:
-            inserir_dados(matricula_input, name_input, telefone_input, setor_option, tipo_option, email_input, txt)    
+            inserir_dados(matricula_input, name_input, telefone_input, setor_option, tipo_option, email_input, txt, status)    
 with col3:
     pass
