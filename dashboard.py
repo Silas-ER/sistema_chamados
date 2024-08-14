@@ -13,7 +13,7 @@ st_autorefresh(interval=1 * 60 * 1000, key="dataframerefresh")
 dados = select()
 
 # Criando um DataFrame a partir dos dados lidos
-colunas = ["ID", "MATRICULA", "NOME", "TELEFONE", "SETOR", "TIPO", "EMAIL", "DESCRICAO", "STATUS"]
+colunas = ["ID", "MATRICULA", "NOME", "TELEFONE", "SETOR", "TIPO", "EMAIL", "DESCRICAO", "PRIORIDADE", "STATUS"]
 df = pd.DataFrame(dados, columns=colunas)
 
 # Exibindo os dados em uma tabela no Streamlit

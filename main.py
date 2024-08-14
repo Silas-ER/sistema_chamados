@@ -31,13 +31,13 @@ with col2:
                 key="setor"
             )
 
-        matricula_input = st.text_input(
-            "Matricula:",
-            label_visibility="visible",
-            disabled=False,
-            placeholder="Digite sua matricula aqui",
-            key="matricula"
-        )
+            matricula_input = st.text_input(
+                "Matricula:",
+                label_visibility="visible",
+                disabled=False,
+                placeholder="Digite sua matricula aqui",
+                key="matricula"
+            )
 
         email_input = st.text_input(
             "Email:",
@@ -64,6 +64,14 @@ with col2:
                 disabled=False,
                 key="tipo"
             )
+            
+            prioridade = st.selectbox(
+                "Prioridade:",
+                ("Alta", "Baixa", "Intermediaria"),
+                label_visibility="visible",
+                disabled=False,
+                key="prioridade"
+            )
 
         # Botão de submissão dentro do formulário
         txt = st.text_area(
@@ -79,6 +87,6 @@ with col2:
 
         # Ações a serem tomadas após o envio do formulário
         if submit_button:
-            inserir_dados(matricula_input, name_input, telefone_input, setor_option, tipo_option, email_input, txt, status)    
+            inserir_dados(matricula_input, name_input, telefone_input, setor_option, tipo_option, email_input, txt, prioridade, status)    
 with col3:
     pass

@@ -18,6 +18,7 @@ cursor.execute(
         TIPO TEXT NOT NULL,
         EMAIL TEXT NOT NULL,
         DESCRICAO TEXT NOT NULL,
+        PRIORIDADE TEXT NOT NULL,
         STATUS BOOL NOT NULL
     )
     """

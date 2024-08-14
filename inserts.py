@@ -26,7 +26,7 @@ def atualizar_status(id):
         # Fechar a conexão com o banco de dados
         db.close()
 
-def inserir_dados(matricula, nome, telefone, setor, tipo, email, descricao, status):
+def inserir_dados(matricula, nome, telefone, setor, tipo, email, descricao, prioridade, status):
     try:
         # Conectar ao banco de dados
         db = sqlite3.connect('dados_acesso.db')
@@ -34,9 +34,9 @@ def inserir_dados(matricula, nome, telefone, setor, tipo, email, descricao, stat
 
         # Comando SQL para inserir dados
         cursor.execute("""
-            INSERT INTO SOLICITACOES (MATRICULA, NOME, TELEFONE, SETOR, TIPO, EMAIL, DESCRICAO, STATUS)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        """, (matricula, nome, telefone, setor, tipo, email, descricao, status))
+            INSERT INTO SOLICITACOES (MATRICULA, NOME, TELEFONE, SETOR, TIPO, EMAIL, DESCRICAO, PRIORIDADE, STATUS)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (matricula, nome, telefone, setor, tipo, email, descricao, prioridade, status))
 
         # Confirmar a transação
         db.commit()
